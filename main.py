@@ -1,10 +1,11 @@
 import os
-from fastapi import FastAPI, HTTPException, Request, requests
+from fastapi import FastAPI, HTTPException, Request
 from web3 import Web3
 from eth_utils import to_checksum_address
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.responses import JSONResponse
 from dotenv import load_dotenv
+import requests
 
 #from middleware import TokenVerificationMiddleware
 
@@ -26,19 +27,19 @@ app.add_middleware(
 # Connect to the local Ethereum node
 web3 = Web3(Web3.HTTPProvider(os.getenv("GANACHE_URL")))
 
-@app.middleware("http")
-async def add_process_time_header(request: Request, call_next):
-    authorization = request.headers.get("Authorization")
-    if authorization is None or not authorization.startswith("Bearer "):
-        return JSONResponse(status_code=401, content="Unauthorized!")
+# @app.middleware("http")
+# async def add_process_time_header(request: Request, call_next):
+#     authorization = request.headers.get("Authorization")
+#     if authorization is None or not authorization.startswith("Bearer "):
+#         return JSONResponse(status_code=401, content="Unauthorized!")
 
-    token = authorization.split(" ")[1]
-    response = requests.get(os.getenv("KEYCLOAK_URL"), headers={"Authorization": f"Bearer {token}"})
-    if response.status_code != 200:
-        return JSONResponse(status_code=401, content="Unauthorized!")
+#     token = authorization.split(" ")[1]
+#     response = requests.get(os.getenv("KEYCLOAK_URL"), headers={"Authorization": f"Bearer {token}"})
+#     if response.status_code != 200:
+#         return JSONResponse(status_code=401, content="Unauthorized!")
     
-    response = await call_next(request)
-    return response
+#     response = await call_next(request)
+#     return response
 
 @app.get('/transactions/{user_address}')
 async def get_transactions(user_address: str):

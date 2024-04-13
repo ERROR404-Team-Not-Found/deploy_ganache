@@ -8,7 +8,7 @@ Install chart: helm install my-ganache ethereum-helm-charts/ganache --version 0.
 
 ## Install guide
 
-helm install blockchain_service ./helmChart --namespace hackathon
+helm install blockchain-service ./helmChart --namespace hackathon
 
 ## Usage guides
 
