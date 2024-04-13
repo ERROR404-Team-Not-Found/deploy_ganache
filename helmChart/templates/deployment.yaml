@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blockchain-service-provider
+  namespace: hackathon
+  labels:
+    app: blockchain-service-provider
+    tier: backend
+    track: stable
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blockchain-service-provider
+  template:
+    metadata:
+      labels:
+        app: blockchain-service-provider
+        tier: backend
+        track: stable
+    spec:
+      containers:
+      - name: blockchain-service-provider
+        image: 10nutz/hackathon_blockchain_service:latest
+        ports:
+        - name: http 
+          containerPort: 8093

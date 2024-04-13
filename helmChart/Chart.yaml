@@ -1,0 +1,4 @@
+apiVersion: v2
+name: blockchain-service-provider-chart
+description: A Helm chart for deploying the blockchain service provider for hackathon
+version: 0.1.0
